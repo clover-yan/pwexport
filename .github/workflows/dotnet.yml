@@ -1,0 +1,57 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build project
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Publish for Windows
+      run: dotnet publish -c Release -r win-x64 --self-contained
+
+    - name: Publish for macOS
+      run: dotnet publish -c Release -r osx-x64 --self-contained
+
+    - name: Publish for Linux
+      run: dotnet publish -c Release -r linux-x64 --self-contained
+
+    - name: Upload artifact for Windows
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows-publish
+        path: |
+          **/bin/Release/net*/win-x64/publish/
+
+    - name: Upload artifact for macOS
+      uses: actions/upload-artifact@v2
+      with:
+        name: macos-publish
+        path: |
+          **/bin/Release/net*/osx-x64/publish/
+
+    - name: Upload artifact for Linux
+      uses: actions/upload-artifact@v2
+      with:
+        name: linux-publish
+        path: |
+          **/bin/Release/net*/linux-x64/publish/
