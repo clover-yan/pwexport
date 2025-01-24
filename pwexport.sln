@@ -1,8 +1,8 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pwexport", "pwexport.csproj", "{BAE88D58-CA3E-BC36-DB82-19F71C876F79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pwexport", "pwexport\pwexport.csproj", "{BAE88D58-CA3E-BC36-DB82-19F71C876F79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

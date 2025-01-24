@@ -21,37 +21,37 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore pwexport/pwexport.csproj
 
     - name: Build project
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build pwexport/pwexport.csproj --configuration Release --no-restore
 
     - name: Publish for Windows
-      run: dotnet publish -c Release -r win-x64 --self-contained
+      run: dotnet publish pwexport/pwexport.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true
 
     - name: Publish for macOS
-      run: dotnet publish -c Release -r osx-x64 --self-contained
+      run: dotnet publish pwexport/pwexport.csproj -c Release -r osx-x64 --self-contained -p:PublishSingleFile=true
 
     - name: Publish for Linux
-      run: dotnet publish -c Release -r linux-x64 --self-contained
+      run: dotnet publish pwexport/pwexport.csproj -c Release -r linux-x64 --self-contained -p:PublishSingleFile=true
 
     - name: Upload artifact for Windows
       uses: actions/upload-artifact@v4
       with:
         name: windows-publish
         path: |
-          **/bin/Release/net*/win-x64/publish/
+          pwexport/**/bin/Release/net*/win-x64/publish/
 
     - name: Upload artifact for macOS
       uses: actions/upload-artifact@v4
       with:
         name: macos-publish
         path: |
-          **/bin/Release/net*/osx-x64/publish/
+          pwexport/**/bin/Release/net*/osx-x64/publish/
 
     - name: Upload artifact for Linux
       uses: actions/upload-artifact@v4
       with:
         name: linux-publish
         path: |
-          **/bin/Release/net*/linux-x64/publish/
+          pwexport/**/bin/Release/net*/linux-x64/publish/
