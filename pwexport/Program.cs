@@ -41,14 +41,20 @@ class Program
                 return;
             }
 
-            using (var connection = new SQLiteConnection($"Data Source={dbPath};Version=3;"))
+            try
             {
+                using var connection = new SQLiteConnection($"Data Source={dbPath};Version=3;");
                 connection.Open();
                 bool exportDirectory = AskYesNo("是否导出篇章目录？");
                 bool appendNumber = AskYesNo("在文件名中附加编号？");
 
                 Export(connection, selectedFolder, exportDirectory, appendNumber);
                 connection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"发生错误：{e.Message}");
+                return;
             }
 
             Console.WriteLine("完成。");
