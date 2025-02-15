@@ -49,7 +49,7 @@ class Program
             Console.WriteLine("发生错误：数据库文件不存在。");
             return;
         }
-        
+
         Console.WriteLine("请将\u001b[1;31m要导出到的目标文件夹\u001b[0m拖放到此窗口，或手动填入路径（建议使用空文件夹）：");
         string selectedFolder = Console.ReadLine()?.Trim('\"').Trim('\'') ?? string.Empty;
 
@@ -111,7 +111,7 @@ class Program
         foreach (var (id, name) in bookList)
         {
             int chapterNumber = 0;
-            string currentDirectory = Path.Combine(selectedFolder, name);
+            string currentDirectory = Path.Combine(selectedFolder, SanitizeFileName(name));
             Directory.CreateDirectory(currentDirectory);
 
             tocWriter?.WriteLine($"<h2>{name}</h2>");
@@ -127,7 +127,7 @@ class Program
 
                 if (extension == "cat")
                 {
-                    currentDirectory = Path.Combine(selectedFolder, name, SanitizeFileName(title));
+                    currentDirectory = Path.Combine(selectedFolder, SanitizeFileName(name), SanitizeFileName(title));
                     Directory.CreateDirectory(currentDirectory);
 
                     tocWriter?.WriteLine($"<h3>{title}</h3>");
