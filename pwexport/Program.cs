@@ -2,10 +2,36 @@
 using System.Data.SQLite;
 using System.IO;
 
+#if WINDOWS
+// Enable ANSI escape codes on Windows
+
+const int STD_OUTPUT_HANDLE = -11;
+const uint ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004;
+
+[DllImport("kernel32.dll", SetLastError = true)]
+static extern IntPtr GetStdHandle(int nStdHandle);
+
+[DllImport("kernel32.dll")]
+static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
+
+[DllImport("kernel32.dll")]
+static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
+#endif
+
 class Program
 {
     static void Main(string[] args)
     {
+
+#if WINDOWS
+// Enable ANSI escape codes on Windows
+
+        var handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        GetConsoleMode(handle, out var mode);
+        mode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+        SetConsoleMode(handle, mode);
+#endif
+
         Console.WriteLine("\u001b[1mPWB 文件导出工具 - Clover Yan\u001b[0m");
         Console.WriteLine($"Version: {System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}");
         Console.WriteLine("更多信息请访问： \u001b[4;94mhttps://www.khyan.top/apps/pwexport\u001b[0m");
