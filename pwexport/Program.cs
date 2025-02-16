@@ -42,7 +42,7 @@ class Program
         Console.WriteLine("3. 找到解压后的文件夹，里面应该有一个后缀名为 db 的数据库文件。");
         Console.WriteLine();
         Console.WriteLine("请将 \u001b[1;31m.db 数据库文件\u001b[0m拖放到此窗口，或手动填入路径：");
-        string dbPath = Console.ReadLine()?.Trim('\"').Trim('\'') ?? string.Empty;
+        string dbPath = Console.ReadLine()?.Trim().Trim('\"').Trim('\'') ?? string.Empty;
 
         if (!File.Exists(dbPath))
         {
@@ -51,7 +51,7 @@ class Program
         }
 
         Console.WriteLine("请将\u001b[1;31m要导出到的目标文件夹\u001b[0m拖放到此窗口，或手动填入路径（建议使用空文件夹）：");
-        string selectedFolder = Console.ReadLine()?.Trim('\"').Trim('\'') ?? string.Empty;
+        string selectedFolder = Console.ReadLine()?.Trim().Trim('\"').Trim('\'') ?? string.Empty;
 
         if (!string.IsNullOrEmpty(selectedFolder))
         {
@@ -84,7 +84,8 @@ class Program
                 return;
             }
 
-            Console.WriteLine("完成。");
+            Console.WriteLine("\u001b[1;31m导出完成。\u001b[0m请按回车键退出。");
+            Console.ReadLine();
         }
     }
 
