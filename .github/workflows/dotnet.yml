@@ -40,18 +40,18 @@ jobs:
       with:
         name: windows-publish
         path: |
-          pwexport/**/bin/Release/net*/win-x64/publish/
+          pwexport/bin/Release/net8.0/win-x64/publish/
 
     - name: Upload artifact for macOS
       uses: actions/upload-artifact@v4
       with:
         name: macos-publish
         path: |
-          pwexport/**/bin/Release/net*/osx-x64/publish/
+          pwexport/bin/Release/net8.0/osx-x64/publish/
 
     - name: Upload artifact for Linux
       uses: actions/upload-artifact@v4
       with:
         name: linux-publish
         path: |
-          pwexport/**/bin/Release/net*/linux-x64/publish/
+          pwexport/bin/Release/net8.0/linux-x64/publish/
